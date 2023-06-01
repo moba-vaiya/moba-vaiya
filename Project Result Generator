@@ -1,0 +1,71 @@
+#include <stdio.h>
+
+struct std
+{
+    int ID;
+    char name[50];
+    float CGPA;
+};
+
+void displayMeritPosition(struct std students[], int numStudents,int idStudents)
+{
+
+    printf("Displaying merit positions...\n");
+    printf("\n");
+
+
+    for (int i = 0; i < numStudents - 1; i++)
+    {
+        for (int j = 0; j < numStudents - i - 1; j++)
+        {
+            if (students[j].CGPA < students[j + 1].CGPA)
+            {
+                struct std temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Merit Position\tName\t\tID\t\tCGPA\n");
+    printf("\n");
+    for (int i = 0; i < numStudents; i++)
+    {
+        if(students[i].CGPA>4.00)
+        {
+            printf("invalid input\n");
+        }
+        else
+        {
+            printf("%d\t\t%s\t\t%d\t\t%.2f\n", i + 1, students[i].name,students[i].ID, students[i].CGPA);
+        }
+    }
+}
+
+int main()
+{
+    int ID;
+    int n;
+    printf("Number of student: ");
+    scanf("%d",&n);
+    printf("\n");
+    struct std students[n];
+
+
+    for (int i = 0; i <n; i++)
+    {
+        printf("Enter details for student %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", students[i].name);
+        printf("ID: ");
+        scanf("%d", &students[i].ID);
+        printf("CGPA: ");
+        scanf("%f", &students[i].CGPA);
+        printf("\n");
+    }
+
+
+    displayMeritPosition(students, n,ID);
+
+    return 0;
+}
